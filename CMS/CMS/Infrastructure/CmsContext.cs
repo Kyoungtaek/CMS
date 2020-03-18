@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CMS.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace CMS.Infrastructure
     {
         public CmsContext(DbContextOptions<CmsContext> options):base(options)
         {
-
         }
+
+        public DbSet<Page> Pages { get; set; }
     }
 }
