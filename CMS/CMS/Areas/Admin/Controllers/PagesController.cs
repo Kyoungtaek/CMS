@@ -43,6 +43,34 @@ namespace CMS.Areas.Admin.Controllers
 
         // GET /admin/pages/create
         public IActionResult Create() => View();
-        
+
+
+        // POST /admin/pages/create
+        [HttpPost]
+        public async Task<IActionResult> Create(Page page)
+        {
+            if (ModelState.IsValid)
+            {
+                page.Slug = page.Title.ToLower().Replace(" ", "-");
+                page.Sorting = 100;
+
+                var slug = await context.Pages.FirstOrDefaultAsync(x => x.Slug.Equals(page.Slug));
+
+                if (slug != null)
+                {
+                    ModelState.AddModelError("", "The Title already exists.");
+
+                    return View(page);
+                }
+
+                context.Add(page);
+                await context.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(page);
+        }
+
     }
 }
