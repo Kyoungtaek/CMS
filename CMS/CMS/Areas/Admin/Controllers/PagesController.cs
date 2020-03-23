@@ -58,7 +58,7 @@ namespace CMS.Areas.Admin.Controllers
 
                 if (slug != null)
                 {
-                    ModelState.AddModelError("", "The Title already exists.");
+                    ModelState.AddModelError("", "The page already exists.");
 
                     return View(page);
                 }
@@ -74,5 +74,46 @@ namespace CMS.Areas.Admin.Controllers
             return View(page);
         }
 
+        // GET /admin/pages/edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            Page page = await context.Pages.FindAsync(id);
+
+            if (page == null)
+            {
+                return NotFound();
+            }
+
+            return View(page);
+        }
+
+        // POST /admin/pages/edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Page page)
+        {
+            if (ModelState.IsValid)
+            {
+                page.Slug=page.Id==1? "home": page.Title.ToLower().Replace(" ", "-");
+
+                var slug = await context.Pages.Where(x=>x.Id!= page.Id).FirstOrDefaultAsync(x => x.Slug.Equals(page.Slug));
+
+                if (slug != null)
+                {
+                    ModelState.AddModelError("", "The Page already exists.");
+
+                    return View(page);
+                }
+
+                context.Update(page);
+                await context.SaveChangesAsync();
+
+                TempData["Success"] = "The page has been edited!";
+
+                return RedirectToAction("Edit", new { id = page.Id });
+            }
+
+            return View(page);
+        }
     }
 }
