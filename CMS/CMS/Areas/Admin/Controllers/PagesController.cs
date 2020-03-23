@@ -25,8 +25,6 @@ namespace CMS.Areas.Admin.Controllers
 
             List<Page> pagesList = await pages.ToListAsync();
 
-            ViewBag.Fruit = "Apples";
-
             return View(pagesList);
         }
 
@@ -46,9 +44,9 @@ namespace CMS.Areas.Admin.Controllers
         // GET /admin/pages/create
         public IActionResult Create() => View();
 
-
         // POST /admin/pages/create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Page page)
         {
             if (ModelState.IsValid)
