@@ -25,6 +25,8 @@ namespace CMS.Areas.Admin.Controllers
 
             List<Page> pagesList = await pages.ToListAsync();
 
+            ViewBag.Fruit = "Apples";
+
             return View(pagesList);
         }
 
@@ -65,6 +67,8 @@ namespace CMS.Areas.Admin.Controllers
 
                 context.Add(page);
                 await context.SaveChangesAsync();
+
+                TempData["Success"] = "The page has been added!";
 
                 return RedirectToAction("Index");
             }
