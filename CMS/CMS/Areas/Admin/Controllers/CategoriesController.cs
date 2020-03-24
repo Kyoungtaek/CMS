@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using CMS.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CMS.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoriesController : Controller
     {
         private readonly CmsContext context;
@@ -15,9 +17,9 @@ namespace CMS.Areas.Admin.Controllers
             this.context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await context.Categories.OrderBy(x=>x.Sorting).ToListAsync());
         }
     }
 }
