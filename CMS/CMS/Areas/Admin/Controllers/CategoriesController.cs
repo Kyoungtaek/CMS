@@ -119,5 +119,23 @@ namespace CMS.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        // POST /admin/categories/reorder
+        [HttpPost]
+        public async Task<IActionResult> Reorder(int[] id)
+        {
+            //for home
+            int count = 1;
+
+            foreach (var categoryId in id)
+            {
+                Category category = await context.Categories.FindAsync(categoryId);
+                category.Sorting = count;
+                context.Update(category);
+                await context.SaveChangesAsync();
+                count++;
+            }
+
+            return Ok();
+        }
     }
 }
