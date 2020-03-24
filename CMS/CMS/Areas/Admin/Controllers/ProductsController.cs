@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CMS.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CMS.Areas.Admin.Controllers
 {
@@ -16,9 +17,11 @@ namespace CMS.Areas.Admin.Controllers
             this.context = context;
         }
 
-        public IActionResult Index()
+        // GET /admin/products
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await context.Products.OrderByDescending(x=>x.Id).Include(x=>x.Category).ToListAsync());
         }
+
     }
 }
