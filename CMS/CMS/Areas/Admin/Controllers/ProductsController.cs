@@ -25,9 +25,14 @@ namespace CMS.Areas.Admin.Controllers
         }
 
         // GET /admin/products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int p = 1)
         {
-            return View(await context.Products.OrderByDescending(x=>x.Id).Include(x=>x.Category).ToListAsync());
+            int pageSize = 6;
+            var products = context.Products.OrderByDescending(x => x.Id).Include(x => x.Category)
+                                    .Skip((p - 1) * pageSize)
+                                    .Take(pageSize);
+
+            return View(await products.ToListAsync());
         }
 
         // GET /admin/products/create
@@ -59,7 +64,7 @@ namespace CMS.Areas.Admin.Controllers
                 }
 
                 string imageName = "noimage.png";
-                if(product.ImageUpload != null)
+                if (product.ImageUpload != null)
                 {
                     string uploadsDir = Path.Combine(webHostEnvironment.WebRootPath, "media/products");
                     imageName = Guid.NewGuid().ToString() + "_" + product.ImageUpload.FileName;
@@ -79,7 +84,7 @@ namespace CMS.Areas.Admin.Controllers
 
                 return RedirectToAction("Index");
             }
-            
+
             return View(product);
         }
     }
