@@ -14,8 +14,6 @@ namespace CMS.Infrastructure
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            //var context = (CmsContext)validationContext.GetService(typeof(CmsContext));
-
             var file = value as IFormFile;
 
             if (file != null)

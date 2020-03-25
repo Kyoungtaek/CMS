@@ -18,9 +18,10 @@ namespace CMS.Areas.Admin.Controllers
         private readonly CmsContext context;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public ProductsController(CmsContext context)
+        public ProductsController(CmsContext context, IWebHostEnvironment webHostEnvironment)
         {
             this.context = context;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         // GET /admin/products
@@ -42,6 +43,8 @@ namespace CMS.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product product)
         {
+            ViewBag.CategoryId = new SelectList(context.Categories.OrderBy(x => x.Sorting), "Id", "Name");
+
             if (ModelState.IsValid)
             {
                 product.Slug = product.Name.ToLower().Replace(" ", "-");
@@ -76,7 +79,7 @@ namespace CMS.Areas.Admin.Controllers
 
                 return RedirectToAction("Index");
             }
-
+            
             return View(product);
         }
     }
