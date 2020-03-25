@@ -24,6 +24,8 @@ namespace CMS.Models
         [Display(Name="Category")]
         [Range(1,int.MaxValue, ErrorMessage ="You must choose a category.")]
         public int CategoryId { get; set; }
+
+        [FileExtensions]
         public string Image { get; set; }
 
         [ForeignKey("CategoryId")]
