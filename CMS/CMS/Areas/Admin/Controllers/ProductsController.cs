@@ -91,5 +91,18 @@ namespace CMS.Areas.Admin.Controllers
 
             return View(product);
         }
+
+        // GET /admin/products/details/5
+        public async Task<IActionResult> Details(int id)
+        {
+            Product product = await context.Products.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
     }
 }
