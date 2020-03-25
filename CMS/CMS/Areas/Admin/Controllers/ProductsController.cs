@@ -104,5 +104,20 @@ namespace CMS.Areas.Admin.Controllers
 
             return View(product);
         }
+
+        // GET /admin/products/details/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            Product product = await context.Products.FindAsync(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.CategoryId = new SelectList(context.Categories.OrderBy(x => x.Sorting), "Id", "Name", product.CategoryId);
+
+            return View(product);
+        }
     }
 }
