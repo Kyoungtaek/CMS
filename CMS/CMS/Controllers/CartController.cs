@@ -27,7 +27,7 @@ namespace CMS.Controllers
                 CartItems = cart,
                 GrandTotal = cart.Sum(x => x.Price * x.Quantity)
             };
-            return View();
+            return View(cartVM);
         }
     }
 }
