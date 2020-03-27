@@ -103,5 +103,13 @@ namespace CMS.Controllers
 
             return RedirectToAction("Index");
         }
+
+        // GET /cart/clear
+        public IActionResult Clear()
+        {
+            HttpContext.Session.Remove("Cart");
+
+            return RedirectToAction("Index");
+        }
     }
 }
