@@ -54,13 +54,13 @@ namespace CMS.Controllers
         }
 
         // GET /cart/decrease/5
-        public async Task<IActionResult> Decrease(int id)
+        public IActionResult Decrease(int id)
         {
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
 
             CartItem cartItem = cart.Where(x => x.ProductId == id).FirstOrDefault();
 
-            if (cartItem.Quantity >1)
+            if (cartItem.Quantity > 1)
             {
                 --cartItem.Quantity;
             }
@@ -69,11 +69,36 @@ namespace CMS.Controllers
                 cart.RemoveAll(x => x.ProductId == id);
             }
 
-            HttpContext.Session.SetJson("Cart", cart);
+            if (cart.Count == 0)
+            {
+                HttpContext.Session.Remove("Cart");
+            }
+            else
+            {
+                HttpContext.Session.SetJson("Cart", cart);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        // GET /cart/remove/5
+        public IActionResult Remove(int id)
+        {
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+
+            CartItem cartItem = cart.Where(x => x.ProductId == id).FirstOrDefault();
+
+
+            cart.RemoveAll(x => x.ProductId == id);
+
 
             if (cart.Count == 0)
             {
                 HttpContext.Session.Remove("Cart");
+            }
+            else
+            {
+                HttpContext.Session.SetJson("Cart", cart);
             }
 
             return RedirectToAction("Index");
