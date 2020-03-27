@@ -15,7 +15,7 @@
             <div>@Html.Raw(item.Description)</div>
             <p>@item.Price.ToString("C2")</p>
             <p>
-                <a href="#" class="btn btn-primary">Add to cart</a>
+                <a class="btn btn-primary" asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id">Add to cart</a>
             </p>
         </div>
     }
