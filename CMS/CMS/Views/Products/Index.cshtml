@@ -21,7 +21,7 @@
             <div>@Html.Raw(item.Description)</div>
             <p>@item.Price.ToString("C2")</p>
             <p>
-                <a class="btn btn-primary" asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id" data-id="@item.Id" >Add to cart</a>
+                <a class="btn btn-primary addToCart" asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id" data-id="@item.Id">Add to cart</a>
             </p>
         </div>
     }
@@ -33,3 +33,19 @@
         </div>
     }
 </div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("a.addToCart").click(function (e) {
+                e.preventDefault();
+
+                let id = $(this).data("id");
+
+                $.get('/cart/add/' + id, {}, function (data) {
+                    $("div.smallcart").html(data);
+                });
+            });
+        });
+    </script>
+}

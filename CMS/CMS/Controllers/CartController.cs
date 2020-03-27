@@ -50,7 +50,10 @@ namespace CMS.Controllers
 
             HttpContext.Session.SetJson("Cart", cart);
 
-            return RedirectToAction("Index");
+            if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+                return RedirectToAction("Index");
+
+            return ViewComponent("SmallCart");
         }
 
         // GET /cart/decrease/5
