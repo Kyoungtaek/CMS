@@ -10,10 +10,8 @@ namespace CMS.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        
-        public string Index()
-        {
-            return "Hello";
-        }
+        // GET /account/register
+        [AllowAnonymous]
+        public IActionResult Register() => View();
     }
 }
