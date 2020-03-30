@@ -17,17 +17,5 @@ namespace CMS.Models
 
         [DataType(DataType.Password), Required, MinLength(4, ErrorMessage = "Minimum Length is 2")]
         public string Password { get; set; }
-
-        public User()
-        {
-
-        }
-
-        public User(AppUser appUser)
-        {
-            UserName = appUser.UserName;
-            Email = appUser.Email;
-            Password = appUser.PasswordHash;
-        }
     }
 }
