@@ -31,7 +31,7 @@ namespace CMS
             services.AddSession(options =>
             {
                 //options.IdleTimeout = TimeSpan.FromDays(2);
-                
+
             });
 
             services.AddControllersWithViews();
@@ -39,7 +39,14 @@ namespace CMS
             services.AddDbContext<CmsContext>(options => options
             .UseSqlServer(Configuration.GetConnectionString("CmsContext")));
 
-            services.AddIdentity<AppUser, IdentityRole>()
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 4;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireDigit = false;
+            })
                     .AddEntityFrameworkStores<CmsContext>()
                     .AddDefaultTokenProviders();
         }
