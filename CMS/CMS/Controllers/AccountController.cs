@@ -94,5 +94,14 @@ namespace CMS.Controllers
 
             return View(login);
         }
+
+        // GET /account/logout
+        [AllowAnonymous]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManger.SignOutAsync();
+
+            return Redirect("/");
+        }
     }
 }
