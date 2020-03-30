@@ -96,12 +96,20 @@ namespace CMS.Controllers
         }
 
         // GET /account/logout
-        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             await signInManger.SignOutAsync();
 
             return Redirect("/");
+        }
+
+        // GET /account/edit
+        public async Task<IActionResult> Edit()
+        {
+            AppUser appUser = await userManager.FindByNameAsync(User.Identity.Name);
+            User user = new User(appUser);
+
+            return View(user);
         }
     }
 }
