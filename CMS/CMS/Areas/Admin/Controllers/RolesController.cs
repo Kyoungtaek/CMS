@@ -35,11 +35,9 @@ namespace CMS.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 IdentityResult result = await roleManager.CreateAsync(new IdentityRole(name));
-
                 if (result.Succeeded)
                 {
                     TempData["Success"] = "The role has been created!";
-
                     return RedirectToAction("Index");
                 }
                 else
@@ -49,7 +47,6 @@ namespace CMS.Areas.Admin.Controllers
             }
 
             ModelState.AddModelError("", "Minimum length is 2");
-
             return View();
         }
 
@@ -63,7 +60,7 @@ namespace CMS.Areas.Admin.Controllers
 
             foreach (AppUser user in userManager.Users)
             {
-                List<AppUser> list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
+                var list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
                 list.Add(user);
             }
 
@@ -73,6 +70,28 @@ namespace CMS.Areas.Admin.Controllers
                 Members = members,
                 NonMembers = nonMembers
             });
+        }
+
+        // POST /admin/roles/edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(RoleEdit roleEdit)
+        {
+            IdentityResult result;
+
+            foreach (string userId in roleEdit.AddIds ?? new string[] { })
+            {
+                AppUser user = await userManager.FindByIdAsync(userId);
+                result = await userManager.AddToRoleAsync(user, roleEdit.RoleName);
+            }
+
+            foreach (string userId in roleEdit.DeleteIds ?? new string[] { })
+            {
+                AppUser user = await userManager.FindByIdAsync(userId);
+                result = await userManager.RemoveFromRoleAsync(user, roleEdit.RoleName);
+            }
+
+            return Redirect(Request.Headers["Referer"].ToString());
         }
     }
 }
