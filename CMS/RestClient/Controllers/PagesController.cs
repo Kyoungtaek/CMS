@@ -79,5 +79,16 @@ namespace RestClient.Controllers
 
             return RedirectToAction("Index");
         }
+
+        // GET pages/delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                using var request = await httpClient.DeleteAsync($"https://localhost:44348/api/pages/{id}");
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
