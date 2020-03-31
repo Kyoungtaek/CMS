@@ -34,7 +34,7 @@ namespace RestClient.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                using var request = await httpClient.GetAsync(@"https://localhost:44348/api/pages/{id}");
+                using var request = await httpClient.GetAsync($"https://localhost:44348/api/pages/{id}");
                 string response = await request.Content.ReadAsStringAsync();
 
                 page = JsonConvert.DeserializeObject<Page>(response);
