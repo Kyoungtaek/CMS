@@ -39,5 +39,20 @@ namespace RestAPI.Controllers
 
             return page;
         }
+
+        // PUT /api/pages/5
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Page>> PutPage(int id, Page page)
+        {
+            if (id != page.Id)
+            {
+                return BadRequest();
+            }
+
+            context.Entry(page).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
