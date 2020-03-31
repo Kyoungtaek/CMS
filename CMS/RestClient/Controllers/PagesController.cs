@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -41,6 +42,22 @@ namespace RestClient.Controllers
             }
 
             return View(page);
+        }
+
+        // POST pages/edit/5
+        [HttpPost]
+        public async Task<IActionResult> Edit(Page page)
+        {
+            page.Slug = page.Title.Replace(" ", "-").ToLower();
+
+            using (var httpClient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(page), Encoding.UTF8, "application/json");
+                using var request = await httpClient.PutAsync($"https://localhost:44348/api/pages/{page.Id}", content);
+                string response = await request.Content.ReadAsStringAsync();
+            }
+
+            return Redirect(Request.Headers["Referer"].ToString());
         }
     }
 }
