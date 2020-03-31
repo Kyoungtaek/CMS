@@ -64,5 +64,17 @@ namespace RestAPI.Controllers
 
             return CreatedAtAction(nameof(PostPage), page);
         }
+
+        // DELETE /api/pages/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Page>> DeletePage(int id)
+        {
+            var page = await context.Pages.FindAsync(id);
+
+            context.Pages.Remove(page);
+            await context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
