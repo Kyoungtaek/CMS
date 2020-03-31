@@ -34,6 +34,8 @@ namespace CMS
 
             });
 
+            services.AddRouting(options => options.LowercaseUrls = true);
+
             services.AddControllersWithViews();
 
             services.AddDbContext<CmsContext>(options => options
