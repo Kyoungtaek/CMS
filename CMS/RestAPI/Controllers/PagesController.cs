@@ -54,5 +54,15 @@ namespace RestAPI.Controllers
 
             return NoContent();
         }
+
+        // POST /api/pages
+        [HttpPost]
+        public async Task<ActionResult<Page>> PostPage(Page page)
+        {
+            context.Pages.Add(page);
+            await context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(PostPage), page);
+        }
     }
 }
