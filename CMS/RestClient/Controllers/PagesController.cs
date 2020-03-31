@@ -59,5 +59,25 @@ namespace RestClient.Controllers
 
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+        // GET pages/create
+        public IActionResult Create() => View();
+
+        // POST pages/create
+        [HttpPost]
+        public async Task<IActionResult> Create(Page page)
+        {
+            page.Slug = page.Title.Replace(" ", "-").ToLower();
+            page.Sorting = 100;
+
+            using (var httpClient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(page), Encoding.UTF8, "application/json");
+                using var request = await httpClient.PostAsync($"https://localhost:44348/api/pages", content);
+                string response = await request.Content.ReadAsStringAsync();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
