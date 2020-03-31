@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMS", "CMS\CMS.csproj", "{1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestAPI", "RestAPI\RestAPI.csproj", "{7F7CC6E1-3450-4320-9F5F-39D171F7D574}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient", "RestClient\RestClient.csproj", "{BD1BAA18-176B-4558-85C9-8B708758BD9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7F7CC6E1-3450-4320-9F5F-39D171F7D574}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F7CC6E1-3450-4320-9F5F-39D171F7D574}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F7CC6E1-3450-4320-9F5F-39D171F7D574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD1BAA18-176B-4558-85C9-8B708758BD9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD1BAA18-176B-4558-85C9-8B708758BD9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD1BAA18-176B-4558-85C9-8B708758BD9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD1BAA18-176B-4558-85C9-8B708758BD9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
