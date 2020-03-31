@@ -19,9 +19,7 @@ namespace CMS.Areas.Admin.Controllers
             this.roleManager = roleManager;
             this.userManager = userManager;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View(roleManager.Roles);
+        
     }
 }
