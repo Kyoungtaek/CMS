@@ -63,7 +63,7 @@ namespace CMS.Areas.Admin.Controllers
 
             foreach (AppUser user in userManager.Users)
             {
-                var list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
+                List<AppUser> list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
                 list.Add(user);
             }
 
