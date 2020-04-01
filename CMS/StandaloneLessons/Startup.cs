@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StandaloneLessons.Models;
 
 namespace StandaloneLessons
 {
@@ -24,6 +25,22 @@ namespace StandaloneLessons
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddScoped<IRepository, Repository>();
+            /*
+             * SingleTon(여기에 속한 메서드들이 프로그램 시작과 동시에 등록이 됨)
+             *  - Singleton lifetime services are created the first time they are requested. Every subsequent request uses
+             *   that same instance.
+             *   
+             * Scope(요청이 들어오면 속한 메서드들이 시작됨)
+             *  - Scoped lifetime services are created once per client request, so each new http request creates a new scoped
+             *  service.
+             *  
+             * Transient(매번 요청이 됨)
+             *  - Transient lifetime services are created each time they are requested from the service container. With a transient
+             *  service a new instance is provided everytime a service instance is requested whether it is in the scope
+             *  of the same http request or across different http request
+             */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
