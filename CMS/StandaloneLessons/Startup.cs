@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StandaloneLessons.Infrastructure;
 using StandaloneLessons.Models;
 
 namespace StandaloneLessons
@@ -60,6 +61,8 @@ namespace StandaloneLessons
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseMiddleware<CustomMiddleware>();
 
             app.UseAuthorization();
 
