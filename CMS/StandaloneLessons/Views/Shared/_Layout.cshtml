@@ -36,6 +36,18 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+        <environment include="Development">
+            <p>Development environment (default)</p>
+        </environment>
+        <environment include="Staging">
+            <p>Staging environment</p>
+        </environment>
+        <environment include="Production">
+            <p>Production environment</p>
+        </environment>
+        <environment exclude="Development">
+            <p>Not Development environment</p>
+        </environment>
     </div>
 
     <footer class="border-top footer text-muted">
