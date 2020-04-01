@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using StandaloneLessons.Infrastructure;
 using StandaloneLessons.Models;
 
 namespace StandaloneLessons.Controllers
@@ -26,6 +27,12 @@ namespace StandaloneLessons.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [TimeElapsed]
+        public string ActionFilter()
+        {
+            return "Action Filter";
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
