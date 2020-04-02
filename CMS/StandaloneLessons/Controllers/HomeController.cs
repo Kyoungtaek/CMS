@@ -43,6 +43,12 @@ namespace StandaloneLessons.Controllers
             return "Action Filter";
         }
 
+        [ExceptionCatch]
+        public string GenerateError()
+        {
+            throw new NotImplementedException();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
