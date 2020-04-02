@@ -24,14 +24,20 @@ namespace StandaloneLessons.Controllers
             return View();
         }
 
+        [ChangeView]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [ActionResultMix]
+        public IActionResult ActionResultMix()
+        {
+            return View("Privacy");
+        }
+
         //[TimeElapsed]
-        //[TimeElapsedAsync]
-        [ChangeView]
+        [TimeElapsedAsync]
         public string ActionFilter()
         {
             return "Action Filter";
