@@ -30,7 +30,8 @@ namespace StandaloneLessons.Controllers
         }
 
         //[TimeElapsed]
-        [TimeElapsedAsync]
+        //[TimeElapsedAsync]
+        [ChangeView]
         public string ActionFilter()
         {
             return "Action Filter";
