@@ -29,7 +29,8 @@ namespace StandaloneLessons.Controllers
             return View();
         }
 
-        [TimeElapsed]
+        //[TimeElapsed]
+        [TimeElapsedAsync]
         public string ActionFilter()
         {
             return "Action Filter";
